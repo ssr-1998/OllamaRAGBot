@@ -88,7 +88,7 @@ ollama run llama3.2:1b  # Run a Model
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/OllamaRAGBot.git
+git clone https://github.com/ssr-1998/OllamaRAGBot.git
 
 cd OllamaRAGBot
 ```
