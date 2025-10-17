@@ -211,12 +211,13 @@ __marimo__/
 
 # Project Files
 tests/test.py
-tests/
 Additional_Info.txt
 For_PDF_Scanning.txt
 Shell_Script_for_Desktop_Shortcut.sh
 src/scripts/main_for_Desktop.py
 data/Chat_History.json
-src/scripts/main_v3.py
-src/utils/
 data/ChromaDB_Storage/
+src/scripts/main_v3 copy.py
+src/utils/
+README_v1.md
+project_structure.txt

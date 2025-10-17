@@ -1,27 +1,75 @@
-# 🧠 Ollama_ChatBot — Context-Aware Local LLM ChatBot
+## 🧠 Project Summary
+**OllamaRAGBot – A Local RAG-Powered Conversational System**
 
-A context-aware local ChatBot built with [Ollama](https://ollama.com/) that allows smooth multi-turn conversations, chat history preservation, and performance tracking. Powered by `Llama 3.2:1B`, this project bridges the gap between fast local inference and intelligent contextual memory — overcoming Ollama's default stateless nature.
-
-> ✨ _Create domain-specific chat threads, track response times, and prepare for future fine-tuning or document-based discussions — all on your local machine._
+This project implements a **Retrieval-Augmented Generation (RAG)** pipeline for a local, privacy-friendly chatbot powered by **Ollama’s Llama 3.2:1B model**.  
+The chatbot retrieves contextually relevant past conversations from a **ChromaDB vector database**, summarises them using a **lightweight transformer model**, and generates responses with fine-tuned contextual relevance.  
+Built completely with open-source tools, it runs locally—no API keys or paid services required.
 
 ---
 
-## 🚀 Features
+## 🧩 Ollama-RAG ChatBot (v3)
 
-- ✅ **Context-Aware Chat**: Maintains prior conversation context to generate coherent responses.
-- ✅ **Response Timer**: Measures and prints response time per prompt.
-- ✅ **Persistent Chat Logging**: Saves each interaction in a structured JSON file (`Chat_History.json`).
-- ✅ **Clean & Summarized Context Feeding**: Optimized context storage via preprocessing and summarization.
-- 🔜 **Upcoming**:
-  - [ ] Multiple chat threads under different **Chat Heads** (e.g., Data Science, Projects, Personal).
-  - [ ] Fine-tuning models using curated history for better personalization.
-  - [ ] Document-aware interaction (PDF, TXT, PY, Images).
+### Overview
+**OllamaRAGBot** is an offline retrieval-based chatbot system that integrates **ChromaDB**, **Sentence Transformers**, and **local LLM inference** to maintain context-aware dialogues.  
+The current version (`main_v3.py`) introduces:
+- **RAG workflow** for dynamic context retrieval  
+- **Context summarization layer** using `t5-small` for concise prompting  
+- **Query filtration + lexical deduplication** for high topic relevance  
+
+---
+
+## 🧱 Project Structure
+
+📁 Ollama<br>
+├── 📄 .gitignore<br>
+├── 📄 LICENSE<br>
+├── 📄 README.md<br>
+├── 📁 data<br>
+│ ├── 📄 Chat_History.json # Auto-created if not present<br>
+│ ├── 📁 ChromaDB_Storage/ # Auto-created persistent vector DB<br>
+│ └── 📄 Sample_Chat_History.json # For GitHub Reference<br>
+├── 📄 requirements.txt<br>
+├── 📁 src<br>
+│ ├── 📄 init.py<br>
+│ ├── 📁 scripts<br>
+│ │ ├── 📄 init.py<br>
+│ │ ├── 📄 main_v1.py<br>
+│ │ ├── 📄 main_v2.py<br>
+│ │ └── 📄 main_v3.py # Latest version with RAG pipeline<br>
+└── 📁 tests<br>
+├── 📄 chromadb_test.py<br>
+└── 📄 test.py<br>
+
+> **Note:**  
+> - If `data/Chat_History.json` or `data/ChromaDB_Storage/` folder does not exist, they are automatically generated when the chatbot runs.  
+> - `data/ChromaDB_Storage/` and `data/Chat_History.json` are ignored in `.gitignore` to prevent unnecessary repository bloat.
+
+---
+
+## 🧠 Key Features
+- **Retrieval-Augmented Generation (RAG)** with persistent vector database
+- **Lightweight summarization** to reduce context load
+- **Lexical filtration** for topic-specific retrieval
+- **Deduplication layer** to improve summarization precision
+- **Automatic context memory expansion** across sessions
+- **Fully offline** and local execution with open-source libraries
+
+---
+
+## ⚙️ Technologies
+- **Python 3.8+**
+- **Ollama (Llama 3.2:1B) or the model of your choice (https://ollama.com/library)**
+- **ChromaDB** for vector storage
+- **SentenceTransformers** for text embeddings
+- **Hugging Face Transformers (T5-small)** for summarization
+- **LangChain Core** for chaining prompts and model inference
 
 ---
 
 ## 🔧 Setup Instructions
 
 ### 1. ✅ Install Ollama
+
 Download and install Ollama for your platform from:  
 👉 https://ollama.com/
 
@@ -30,34 +78,43 @@ Download and install Ollama for your platform from:
 Choose a model based on your system resources. For this project:
 
 ```bash
-ollama pull llama3.2
-ollama run llama3.2
+ollama pull llama3.2:1b  # Pull a Model
+
+ollama run llama3.2:1b  # Run a Model
 ```
 
 > 📌 Run `ollama` in terminal to verify installation.
 
-### 3. 🐍 Setup Python Environment
+### Clone the Repository
 
 ```bash
-# Clone this repo
-git clone https://github.com/your-username/Ollama_ChatBot.git
-cd Ollama_ChatBot
+git clone https://github.com/your-username/OllamaRAGBot.git
 
-# Create a virtual environment (recommended)
+cd OllamaRAGBot
+```
+
+### Create a virtual environment (Recommended)
+
+```bash
 python -m venv ollama-env
-source ollama-env/bin/activate  # or `ollama-env\Scripts\activate` on Windows
 
-# Install dependencies
+source ollama-env/bin/activate  # or `ollama-env\Scripts\activate` on Windows
+```
+
+### Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 4. ▶️ Run the ChatBot
+### Run the Chatbot
 
 ```bash
-python main_v2.py
+python src/scripts/main_v3.py
 ```
 
-Then start chatting! To exit, type `exit`.
+> Then start chatting! To exit, type `exit`.
+> The chatbot automatically creates missing data storage or JSON history files on first run.
 
 ---
 
@@ -67,48 +124,31 @@ Then start chatting! To exit, type `exit`.
 You: What is LangChain?
 Ollama: LangChain is an open-source framework for developing LLM applications...
 
- Response Time: 0 hours 0 minutes and 2.47 seconds.
+ Response Time: 0 hours 0 minutes and 1.47 seconds.
 ```
 
 ---
 
-## 🧠 Future Enhancements
-
-- **Chat Heads**: Organize conversations by topic/domain.
-- **Model Fine-Tuning**: Use past chat data to personalize and boost model performance.
-- **Document-Aware Bot**: Allow uploading and querying PDFs, code files, or images.
+## 🧩 Version History
+- **v1:** Basic question–answer conversational template  
+- **v2:** Integrated contextual chaining with LangChain prompt templates  
+- **v3 (Current):** RAG pipeline with filtration, summarisation, and deduplication  
 
 ---
 
-## 📑 Requirements
-
-- Python 3.8+
-- Ollama installed and model pulled (e.g., `llama3.2`)
-- Internet access only for initial model pull
+## 🧭 Future Plans
+1. Adding Logging & Exception Handling  
+2. Modularising chatbot components into sub-pipelines  
+3. Fine-tuning the LLM Model  
 
 ---
 
 ## 🤝 Contributing
-
-Suggestions or pull requests to improve functionality, add UIs, or document parsing are welcome!
+Contributions welcome!  
+If you find improvements or have ideas for new features (like caching, feedback scoring, or knowledge graph integration), feel free to fork and pull a request.
 
 ---
 
-## 📜 License
-
-### MIT License
-
-This project is licensed under the MIT License.
-
-```
-MIT License © 2025 Shubham Singh Rana
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions...
-
-(Full license text continues in LICENSE file)
-```
+## 📄 License
+This project is distributed under the **MIT License**.  
+See the [LICENSE](./LICENSE) file for details.
