@@ -210,14 +210,17 @@ __marimo__/
 .idea
 
 # Project Files
-tests/test.py
-Additional_Info.txt
-For_PDF_Scanning.txt
-Shell_Script_for_Desktop_Shortcut.sh
-src/scripts/main_for_Desktop.py
+logs/
 data/Chat_History.json
 data/ChromaDB_Storage/
-src/scripts/main_v3 copy.py
-src/utils/
+src/scripts/main_for_Desktop.py
+tests/test.py
 README_v1.md
+Additional_Info.txt
+For_PDF_Scanning.txt
 project_structure.txt
+Shell_Script_for_Desktop_Shortcut.sh
+
+src/scripts/main_v4.py
+src/scripts/main_v3_old.py
+src/utils copy.py
