@@ -30,15 +30,17 @@ The current version (`main_v3.py`) introduces:
 │ └── 📄 Sample_Chat_History.json # For GitHub Reference<br>
 ├── 📄 requirements.txt<br>
 ├── 📁 src<br>
-│ ├── 📄 init.py<br>
-│ ├── 📁 scripts<br>
-│ │ ├── 📄 init.py<br>
-│ │ ├── 📄 main_v1.py<br>
-│ │ ├── 📄 main_v2.py<br>
-│ │ └── 📄 main_v3.py # Latest version with RAG pipeline<br>
+│   ├── 📄 __init__.py<br>
+│   ├── 📄 exceptions.py<br>
+│   ├── 📄 logger.py<br>
+│   ├── 📁 scripts<br>
+│   │   ├── 📄 __init__.py<br>
+│   │   ├── 📄 main_v1.py<br>
+│   │   ├── 📄 main_v2.py<br>
+│   │   └── 📄 main_v3.py # Latest version with RAG pipeline<br>
+│   └── 📄 utils.py<br>
 └── 📁 tests<br>
-├── 📄 chromadb_test.py<br>
-└── 📄 test.py<br>
+    └── 📄 chromadb_test.py
 
 > **Note:**  
 > - If `data/Chat_History.json` or `data/ChromaDB_Storage/` folder does not exist, they are automatically generated when the chatbot runs.  
@@ -121,10 +123,20 @@ python src/scripts/main_v3.py
 ## 📌 Example Interaction
 
 ```
-You: What is LangChain?
-Ollama: LangChain is an open-source framework for developing LLM applications...
+Loading ChromaDB...
+Loading LLM Model...
 
- Response Time: 0 hours 0 minutes and 1.47 seconds.
+Welcome to the AI ChatBot powered by Ollama Llama 3.2:1B Model! Type `exit` to quit.
+
+User: What is LangChain?
+
+Thinking...
+Accessing Historical Chats...
+Generating Response...
+
+Ollama: Hello again, and thank you for reaching out. I'm happy to address your question about LangChain.
+
+LangChain refers to the concept of using a combination of Natural Language Processing (NLP) and Chain Rule Optimization techniques to learn and improve language models like Graph Neural Networks (GNNs). Specifically, LangChain aims to leverage the strengths of both NLP and GNN in order to develop more efficient and effective language models...
 ```
 
 ---
@@ -137,9 +149,11 @@ Ollama: LangChain is an open-source framework for developing LLM applications...
 ---
 
 ## 🧭 Future Plans
-1. Adding Logging & Exception Handling  
-2. Modularising chatbot components into sub-pipelines  
-3. Fine-tuning the LLM Model  
+1. Adding Logging & Exception Handling  **[Completed]**
+2. Modularising chatbot components into sub-pipelines (Utils)  **[Completed]**
+3. Dockerization of the ChatBot.
+4. Testing Model Responses with more latest/heavier models.
+5. Fine-tuning the LLM Model.
 
 ---
 
