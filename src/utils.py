@@ -1,9 +1,9 @@
 import os, re, json, pathlib, chromadb
 from nltk.corpus import stopwords
 from transformers import pipeline
-from sentence_transformers import SentenceTransformer
 from src.logger import get_logger
 from src.exceptions import log_and_notify_exception
+from sentence_transformers import SentenceTransformer
 
 # ------------------- SETUP ----------------------
 
@@ -81,19 +81,16 @@ def maintain_chat_history(chat_entry :dict):
         
         # Storing Human Message Embeddings into ChromaDB
         human_text = chat_entry["human"]
-        embedding = embedder.encode([human_text]).tolist()
+        embedding = embedder.encode([human_text], show_progress_bar=False).tolist()
 
         chroma_id = "chat_{}".format(str(chat_idx))
 
-        # with contextlib.redirect_stdout(None):
-        # print("Progress Bar Starts")
         collection.add(
             documents=[human_text], 
             embeddings=embedding, 
             metadatas=[{"index": chat_idx}], 
             ids=[chroma_id]
         )
-        # print("Progress Bar Ends")
 
         logger.info("Chat History Updated!")
     except Exception as e:
@@ -193,13 +190,10 @@ def build_prompt_with_summary(user_input, n_results=10):
 
     try:
         print("Accessing Historical Chats...")
-        # with contextlib.redirect_stdout(None):
-        # print("Progress Bar Starts")
         results = collection.query(
-            query_embeddings=embedder.encode([user_input]).tolist(),
+            query_embeddings=embedder.encode([user_input], show_progress_bar=False).tolist(),
             n_results=n_results
         )
-        # print("Progress Bar Ends")
         
         raw_contexts = results['documents'][0] if results['documents'] else []
     except Exception as e:

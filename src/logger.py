@@ -7,16 +7,6 @@ os.makedirs(LOG_DIR, exist_ok=True)
 LOG_FILE = f"log_{datetime.now().strftime('%d_%m_%Y_%H_%M_%S')}.log"
 LOG_FILE_PATH = os.path.join(LOG_DIR, LOG_FILE)
 
-# # Basic Logging:
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s",
-#     handlers=[
-#         logging.FileHandler(LOG_FILE_PATH), 
-#         logging.StreamHandler()
-#     ]
-# )
-
 """Final Logging Setup:
 
 - Use only INFO, WARNING, ERROR levels.

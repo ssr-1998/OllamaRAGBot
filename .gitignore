@@ -218,9 +218,4 @@ tests/test.py
 README_v1.md
 Additional_Info.txt
 For_PDF_Scanning.txt
-project_structure.txt
 Shell_Script_for_Desktop_Shortcut.sh
-
-src/scripts/main_v4.py
-src/scripts/main_v3_old.py
-src/utils copy.py
