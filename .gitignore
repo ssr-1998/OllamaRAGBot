@@ -216,6 +216,8 @@ data/ChromaDB_Storage/
 src/scripts/main_for_Desktop.py
 tests/test.py
 README_v1.md
+README_v2.md
 Additional_Info.txt
 For_PDF_Scanning.txt
 Shell_Script_for_Desktop_Shortcut.sh
+project_structure.txt
